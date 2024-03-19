@@ -1,0 +1,136 @@
+{% extends 'eCapture/base.html' %}
+{% load staticfiles %}
+{% block styles %}
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0,
+            0.8)), url({% static 'assets/img/senate.jpg' %});
+            background-size: cover;
+        }
+
+        .nav-link:hover {
+            background-color: #dee2e6 !important;
+            color: white !important;
+        }
+
+        img {
+            border-style: solid !important;
+            border-color: black !important;
+            border-width: thin !important;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <nav class="navbar navbar-light navbar-expand-md fixed-top navigation-clean"
+         style="padding-top: 5px;padding-bottom: 5px;">
+        <div class="container-fluid"><a class="navbar-brand" href="#"
+                                        style="font-family: Montserrat, sans-serif;color: #1b8002;">eCapture</a>
+            <button data-toggle="collapse" class="navbar-toggler"
+                    data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item dropdown"><a
+                            class="dropdown-toggle nav-link"
+                            data-toggle="dropdown"
+                            aria-expanded="false" href="#">&nbsp;<img
+                            class="rounded-circle"
+                            style="height: 30px;width: 30px;"
+                            src="{{ request.user.staff.image.url }}"><span
+                            style="font-family: Montserrat, sans-serif;
+                            font-size: 14px;">&nbsp;
+                        {{ request.user.get_full_name }}</span></a>
+                        <div
+                                class="dropdown-menu" role="menu"><a
+                                class="dropdown-item" role="presentation"
+                                href="{% url 'eCapture:profile' %}"
+                                style="font-size: 14px;">My Profile</a><a
+                                class="dropdown-item" role="presentation"
+                                href="{% url 'eCapture:profile_settings' %}"
+                                style="font-size: 14px;
+">Profile
+                            Settings</a>
+                            <div class="dropdown-divider"
+                                 role="presentation"></div>
+                            <a class="dropdown-item" role="presentation"
+                               href="{% url 'logout' %}"
+                               style="font-size: 14px;">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <div class="row">
+            <div class="col-lg-2 d-none d-lg-block offset-lg-0 nav-fixed">
+                <div style="height: 100vh;width: 100%;padding-top: 150px;
+                background-color: white;color: black">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               href="{% url 'eCapture:profile' %}"
+                               style="font-size: 14px;font-family: Montserrat, sans-serif;color: black;">
+                                <i class="icon ion-ios-time-outline"
+                                   style="width: 40px;height: 40px;margin-right: 13px; margin-left: 3px;"></i>Status
+                                &amp; Logs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{% url 'eCapture:defaults' %}"
+                               style="font-size: 14px;font-family: Montserrat,
+                            sans-serif;color: black;">
+                                <span><i class="typcn typcn-warning"
+                                         style="margin-right: 10px;"></i>
+                                </span>Defaults
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{% url 'eCapture:profile_settings' %}"
+                               style="font-size: 14px;font-family: Montserrat, sans-serif;color: black;">
+                                <span style="font-size: 16px;"><i
+                                        class="typcn typcn-cog"
+                                        style="margin-right: 10px;font-size: 18px;margin-left: -3px;"></i>
+                                </span>Profile Settings
+                            </a>
+                        </li>
+                        {% if request.user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{% url 'eCapture:admin' %}"
+                                   style="font-size: 14px;font-family: Montserrat, sans-serif;color: black;">
+                                <span style="font-size: 16px;"><i
+                                        class="typcn typcn-chart-bar"
+                                        style="margin-right: 10px;font-size: 18px;margin-left: -3px;"></i>
+                                </span>Dashboard
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            {% block main %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer class="py-4 bg-light mt-auto bg-white">
+        <div class="container-fluid">
+            <div class="d-flex offset-lg-2 align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; eCapture
+                    2020
+                </div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
